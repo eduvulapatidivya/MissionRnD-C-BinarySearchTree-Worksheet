@@ -1,16 +1,17 @@
+
 /*
 Given a Binary Search Tree ,Copy All Elements in BST into a Array in horizontal row by row fashion where
 each row is copied from Right to Left.
 
 First copy the Frist row ,Next the second row etc .
-Ex : If Bst is 
-    6                        <-- Copy this first 
-   / \
-  4  10                      <-- Copy this row next from 10 and next 4 ..
- / \   \
-1   5   15                   <-- Order her is 15 ,5 ,1 
-          \
-          17
+Ex : If Bst is
+6                        <-- Copy this first
+/ \
+4  10                      <-- Copy this row next from 10 and next 4 ..
+/ \   \
+1   5   15                   <-- Order her is 15 ,5 ,1
+\
+17
 
 Output will be a array consisting of [6,10,4,15,5,1,17];
 
@@ -29,9 +30,26 @@ struct node{
 	struct node *right;
 };
 
-
-
 int* BSTRighttoLeftRows(struct node* root)
 {
-    return NULL;
+	if (root != NULL){
+		int* arr = (int*)malloc(sizeof(int) * 15);
+		int i = 0;
+		struct node** que = (struct node**)malloc(sizeof(struct node*) * 15);
+		int start = 0, end = 1;
+		que[0] = root;
+		while (start<end){
+			arr[i++] = que[start]->data;
+			if (que[start]->right != NULL){
+				que[end++] = que[start]->right;
+			}
+			if (que[start]->left != NULL){
+				que[end++] = que[start]->left;
+			}
+			start++;
+		}
+		return arr;
+	}
+	return NULL;
 }
+
